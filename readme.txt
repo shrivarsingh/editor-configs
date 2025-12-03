@@ -8,5 +8,5 @@ Config Location: C:\Users\username\AppData\Local\nvim\init.lua
 --- Notepad++ ---
 Install Commands:
 > winget install -e --id Notepad++.Notepad++
-Config Location: C:\Users\username\AppData\Roaming\Notepad++\
+Config Location: C:\Users\username\AppData\Roaming\Notepad++\themes\shivzDarkMode.xml
 
