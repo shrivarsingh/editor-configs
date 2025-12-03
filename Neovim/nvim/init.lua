@@ -63,6 +63,12 @@ vim.api.nvim_set_keymap('n', '<MiddleMouse>', '<Nop>', { noremap = true, silent 
 -- Disable MiddleMouse in insert mode
 vim.api.nvim_set_keymap('i', '<MiddleMouse>', '<Nop>', { noremap = true, silent = true })
 
+-- Open explorer with <leader>e
+vim.keymap.set("n", "<leader>e", ":Ex<CR>", { noremap = true, silent = true})
+
+-- Custom function to insert an empty line below the cursor without entering insert mode
+vim.keymap.set("n", "<leader>o", "<cmd>call append(line('.'), repeat([''], v:count1))<CR>", { desc = "add empty line below" })
+
 -- Toggle relative line numbers with <leader>rn
 vim.keymap.set("n", "<leader>rn", function()
     vim.opt.relativenumber = not vim.opt.relativenumber:get()
@@ -70,4 +76,11 @@ end, { desc = "Toggle relative line numbers" })
 
 -- Clear search highlights with <leader>h
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
+
+-- Restore cursor on nvim exit
+vim.api.nvim_create_autocmd("VimLeave", {
+    callback = function()
+        vim.opt.guicursor = "a:ver25"
+    end,
+})
 
