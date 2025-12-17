@@ -10,3 +10,7 @@ Install Commands:
 > winget install -e --id Notepad++.Notepad++
 Config Location: C:\Users\username\AppData\Roaming\Notepad++\themes\shivzDarkMode.xml
 
+--- VSCode ---
+Install Commands:
+> winget install -e --id Microsoft.VisualStudioCode
+Config Location: C:\Users\username\AppData\Roaming\Code\User
