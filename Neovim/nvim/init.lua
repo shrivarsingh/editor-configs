@@ -1,4 +1,4 @@
--- Neovide
+-- Neovim
 
 -- Disable compatibility with old vi
 vim.opt.compatible = false
@@ -51,11 +51,6 @@ vim.opt.cursorline = true
 
 -- Automatically reloads a file if it changes on disk
 vim.opt.autoread = true
-
--- Use system clipboard for all yank, delete, change, and paste operations
-vim.opt.clipboard = "unnamedplus"
--- Keep deletes local, but yanks go to system clipboard
-vim.keymap.set({"n", "v"}, "d", '"_d')
 
 -- Disable MiddleMouse in normal mode
 vim.api.nvim_set_keymap('n', '<MiddleMouse>', '<Nop>', { noremap = true, silent = true })
