@@ -58,21 +58,53 @@ vim.api.nvim_set_keymap('n', '<MiddleMouse>', '<Nop>', { noremap = true, silent 
 -- Disable MiddleMouse in insert mode
 vim.api.nvim_set_keymap('i', '<MiddleMouse>', '<Nop>', { noremap = true, silent = true })
 
--- Open explorer with <leader>e
-vim.keymap.set("n", "<leader>e", ":Ex<CR>", { noremap = true, silent = true})
-
 -- Custom function to insert an empty line below the cursor without entering insert mode
 vim.keymap.set("n", "<leader>o", "<cmd>call append(line('.'), repeat([''], v:count1))<CR>", { desc = "add empty line below" })
 
--- Toggle relative line numbers with <leader>rn
+-- <leader>rn Toggle relative line numbers with
 vim.keymap.set("n", "<leader>rn", function()
     vim.opt.relativenumber = not vim.opt.relativenumber:get()
 end, { desc = "Toggle relative line numbers" })
 
--- Clear search highlights with <leader>h
-vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
+-- <leader>/ Clear search highlights with
+vim.keymap.set('n', '<leader>/', ':nohlsearch<CR>')
 
--- Restore cursor on nvim exit
+-- <leader>e netrw (no sidebar tweaks)
+vim.keymap.set("n", "<leader>e", function()
+    vim.g.netrw_banner = 1
+    vim.g.netrw_liststyle = 0
+    vim.g.netrw_browse_split = 0
+    vim.g.netrw_altv = 0
+    vim.g.netrw_winsize = 0
+    vim.g.netrw_keepdir = 1
+    vim.cmd("Ex")
+end, { silent = true })
+
+-- <leader>b Sidebar-style netrw
+vim.keymap.set("n", "<leader>b", function()
+    vim.g.netrw_banner = 0
+    vim.g.netrw_liststyle = 3
+    vim.g.netrw_browse_split = 4
+    vim.g.netrw_altv = 0
+    vim.g.netrw_winsize = 25
+    vim.g.netrw_keepdir = 0
+    local wins = vim.api.nvim_list_wins()
+    for _, win in ipairs(wins) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.bo[buf].filetype == "netrw" then
+            if #wins == 1 then
+                vim.cmd("enew")
+                vim.cmd("Vex")
+            else
+                vim.api.nvim_win_close(win, true)
+            end
+            return
+        end
+    end
+    vim.cmd("Vex")
+end, { silent = true })
+
+-- Restore cursor on nvim exit [Windows Terminal]
 vim.api.nvim_create_autocmd("VimLeave", {
     callback = function()
         vim.opt.guicursor = "a:ver25"
