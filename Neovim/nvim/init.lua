@@ -3,26 +3,22 @@
 -- Disable compatibility with old vi
 vim.opt.compatible = false
 -- Do not detect file type initially
-vim.cmd('filetype off')
+vim.cmd("filetype off")
 
--- Sets the leader key for custom shortcuts to the spacebar (' ')
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- Sets the leader key for custom shortcuts to the spacebar (" ")
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Enable absolute line numbers
 vim.opt.number = true
 
--- Backspace works in insert mode. '2' means you can backspace over:
--- - Indentation
--- - End of line
--- - Start of insert
-vim.opt.backspace = '2'
+-- Backspace works in insert mode. "2" means you can backspace over:
+vim.opt.backspace = "2"
 
 -- Tabs and indentation
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.shiftround = true
--- Convert tabs to spaces
 vim.opt.expandtab = true
 
 -- Set the Gui font for Neovim
@@ -32,13 +28,13 @@ vim.opt.guifont = "Consolas:h16"
 vim.opt.hlsearch = true
 
 -- Set color support
-vim.opt.termguicolors = true -- modern equivalent of t_Co=256
+vim.opt.termguicolors = true
 
 -- Enable command-line completion menu
 vim.opt.wildmenu = true
 
 -- Enable syntax highlighting
-vim.cmd('syntax on')
+vim.cmd("syntax on")
 
 -- partial commands in the bottom right
 vim.opt.showcmd = true
@@ -53,55 +49,25 @@ vim.opt.cursorline = true
 vim.opt.autoread = true
 
 -- Disable MiddleMouse in normal mode
-vim.api.nvim_set_keymap('n', '<MiddleMouse>', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<MiddleMouse>", "<Nop>", { noremap = true, silent = true })
 
 -- Disable MiddleMouse in insert mode
-vim.api.nvim_set_keymap('i', '<MiddleMouse>', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("i", "<MiddleMouse>", "<Nop>", { noremap = true, silent = true })
 
 -- Custom function to insert an empty line below the cursor without entering insert mode
 vim.keymap.set("n", "<leader>o", "<cmd>call append(line('.'), repeat([''], v:count1))<CR>", { desc = "add empty line below" })
 
--- <leader>rn Toggle relative line numbers with
+-- <leader>rn Toggle Relative Line Numbers 
 vim.keymap.set("n", "<leader>rn", function()
     vim.opt.relativenumber = not vim.opt.relativenumber:get()
 end, { desc = "Toggle relative line numbers" })
 
--- <leader>/ Clear search highlights with
-vim.keymap.set('n', '<leader>/', ':nohlsearch<CR>')
+-- <leader>/ Clear search highlights 
+vim.keymap.set("n", "<leader>/", ":nohlsearch<CR>")
 
--- <leader>e netrw (no sidebar tweaks)
+-- <leader>e Open netrw 
 vim.keymap.set("n", "<leader>e", function()
-    vim.g.netrw_banner = 1
-    vim.g.netrw_liststyle = 0
-    vim.g.netrw_browse_split = 0
-    vim.g.netrw_altv = 0
-    vim.g.netrw_winsize = 0
-    vim.g.netrw_keepdir = 1
     vim.cmd("Ex")
-end, { silent = true })
-
--- <leader>b Sidebar-style netrw
-vim.keymap.set("n", "<leader>b", function()
-    vim.g.netrw_banner = 0
-    vim.g.netrw_liststyle = 3
-    vim.g.netrw_browse_split = 4
-    vim.g.netrw_altv = 0
-    vim.g.netrw_winsize = 25
-    vim.g.netrw_keepdir = 0
-    local wins = vim.api.nvim_list_wins()
-    for _, win in ipairs(wins) do
-        local buf = vim.api.nvim_win_get_buf(win)
-        if vim.bo[buf].filetype == "netrw" then
-            if #wins == 1 then
-                vim.cmd("enew")
-                vim.cmd("Vex")
-            else
-                vim.api.nvim_win_close(win, true)
-            end
-            return
-        end
-    end
-    vim.cmd("Vex")
 end, { silent = true })
 
 -- Restore cursor on nvim exit [Windows Terminal]
@@ -110,4 +76,3 @@ vim.api.nvim_create_autocmd("VimLeave", {
         vim.opt.guicursor = "a:ver25"
     end,
 })
-
