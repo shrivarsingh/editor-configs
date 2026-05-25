@@ -70,9 +70,9 @@ vim.keymap.set("n", "<leader>e", function()
     vim.cmd("Ex")
 end, { silent = true })
 
--- Restore cursor on nvim exit [Windows Terminal]
-vim.api.nvim_create_autocmd("VimLeave", {
-    callback = function()
-        vim.opt.guicursor = "a:ver25"
-    end,
-})
+-- <leader>t Open new tab terminal
+vim.keymap.set("n", "<leader>t", function()
+  vim.cmd("tabnew | terminal")
+  vim.cmd("startinsert")
+end)
+
