@@ -22,7 +22,12 @@ vim.opt.shiftround = true
 vim.opt.expandtab = true
 
 -- Set the Gui font for Neovim
-vim.opt.guifont = "Consolas:h16"
+local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
+if is_windows then
+    vim.o.guifont = "Consolas:h16"
+else
+    vim.o.guifont = "Liberation Mono:h16"
+end
 
 -- Highlight search results
 vim.opt.hlsearch = true
